@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import styled,{keyframes} from 'styled-components';
 import { useQuery, gql } from '@apollo/client';
 import PersonajeR from './PersonajeR'
-
+import SideBar from './SideBar';
+import { motion } from 'framer-motion'
 
 const Inicio = () => {
-  const[historial, setHistorial] = useState([]);
+  const[historial, setHistorial] = useState();
   const[aleatorio, setAleatorio] = useState(1);
 
-  const generarP = ()=>{
+  const generarPersonaje = ()=>{
     setAleatorio(Math.floor(Math.random()*826))
   }
 
@@ -30,17 +31,18 @@ const Inicio = () => {
   console.log(data);
   return (
     <ContenedorRamdon>
-    <BotonGenerar onClick={generarP}>
-      Generar Personaje
-    </BotonGenerar>
+      {historial?(<SideBar />):null}
+      <BotonesRamdon>
+          <BotonGenerar onClick={generarPersonaje}>Generar Personaje</BotonGenerar>
+          <BotonGenerar onClick={()=> setHistorial(!historial)}>Historial</BotonGenerar>
+      </BotonesRamdon>
     {<PersonajeR
     url = {data.character.image}
     name = {data.character.name}
-    created = {data.character.created}
+    created = {data.character.created.toString()}
     species = {data.character.species}
     gender = {data.character.gender}
     />}
-
     </ContenedorRamdon>
   )
 }
@@ -58,6 +60,7 @@ const BotonGenerar = styled.button`
 padding: 10px 20px;
 border-radius:10px;
 border-color:  #3B82F6;
+margin-right:10px;
 
 
 &:hover{
@@ -68,7 +71,6 @@ border-color:  #3B82F6;
   border-radius:10px;
 }
 `
-
 const spinEffect = keyframes`
 0% {
   -webkit-transform: rotate(0deg);
@@ -84,7 +86,6 @@ const spinEffect = keyframes`
   transform: rotate(360deg);
  }
 `
-
 const Spinner = styled.div`
   --clr: #3498db;
   width: 50px;
@@ -114,4 +115,8 @@ const Spinner = styled.div`
  &:after {
   border: 10px solid #ccc;
  }
+`
+const BotonesRamdon = styled.div`
+display: flex;
+flex-direction:row;
 `

@@ -51,6 +51,8 @@ const Barra = styled.div`
   height: 70px;
   justify-content: space-between;
   padding: 0px 20px;
+  box-shadow: 1px 1px 2px 2px #AAAAAA;
+  z-index:100;
 `
 const Redes = styled.div`
   display:flex;
@@ -61,11 +63,15 @@ const Redes = styled.div`
 `
 const Imagen = styled.div`
   font-weight: bold;  
+  font-family: 'Russo One', sans-serif;
+  font-size:20px;
+  color:white;
   display:flex;
   height: 70px;
   width: 300px;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
 `
 const BarraDireccion = styled.div`
 display: flex;
@@ -73,13 +79,17 @@ width: 100%;
 position: fix;
 background-color: #FFFFFF;
 height: 70px;
+box-shadow: 0px 1px 1px 1px #AAAAAA;
+z-index: 10;
 `
-const BotonPersonaje = styled.div`
-display: flex;
+const BotonPersonaje = styled.button`
+display: block;
 text-align: center;
+background-color: #FFFFFF;
 align-items: center;
 height: 100%;
 padding:0px 20px;
+border: none ;
 &:hover{
     cursor: pointer;
     border-bottom: 3px solid #888888
