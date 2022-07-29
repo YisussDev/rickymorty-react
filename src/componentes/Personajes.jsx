@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 import { useQuery, gql } from '@apollo/client';
 import Tarjetas from './Tarjetas';
 
 
 const Personajes = () => {
-  const[pag, setPag] = useState(0);
+  const[pag, setPag] = useState(1);
 
   
   const GET_CHARACTERS = gql `
@@ -27,7 +27,7 @@ const Personajes = () => {
   }
   `
   const { loading, error, data } = useQuery(GET_CHARACTERS);
-  if (loading) return <p>Cargando...</p>;
+  if (loading) return <Spinner></Spinner>;
   if (error) return <p>Error :(</p>;
   
   let paginasActuales = parseInt(data.characters.info.count / 20) + 1;
@@ -111,4 +111,50 @@ const Paginas = styled.div`
   color: #3B82F6;
   width: 200px;
   height: 50px;
+`
+const spinEffect = keyframes`
+0% {
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+ }
+
+ 100% {
+  -webkit-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  transform: rotate(360deg);
+ }
+`
+
+const Spinner = styled.div`
+  --clr: #3498db;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: calc((100vh - 50px )/2);
+  left: calc((100vw - 50px )/2);
+ 
+ 
+ &:before, &:after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  border: 10px solid transparent;
+  border-top-color: var(--clr);
+ }
+ 
+ &:before {
+  z-index: 100;
+  animation: ${spinEffect} 1s infinite;
+ }
+ 
+ &:after {
+  border: 10px solid #ccc;
+ }
 `

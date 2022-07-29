@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 
 const Header = () => {
-  const[clicked, setClicked] = useState(false);
+  const[clicked, setClicked] = useState(true);
   const[clickedP, setClickedP] = useState(true);
   let navigate = useNavigate();
   const irInicio = () => {
