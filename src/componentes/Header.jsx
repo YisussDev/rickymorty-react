@@ -4,13 +4,17 @@ import styled from 'styled-components';
 
 
 const Header = () => {
-  const[clicked, setClicked] = useState();
+  const[clicked, setClicked] = useState(false);
+  const[clickedP, setClickedP] = useState(true);
   let navigate = useNavigate();
   const irInicio = () => {
     navigate('/')
+    setClicked(false);
+    setClickedP(true);
   }
   const irPersonajes = () => {
     navigate('/personajes')
+    setClickedP(false);
     setClicked(true);
   }
 
@@ -18,7 +22,8 @@ const Header = () => {
     <>
         <Barra>
             <Imagen>
-                RICK Y MORTY
+              <Logo src='https://www.pngmart.com/files/3/Rick-And-Morty-PNG-Pic.png'/>
+                Rick Y Morty
             </Imagen>
             
             <Redes>
@@ -26,8 +31,10 @@ const Header = () => {
             </Redes>
         </Barra>
         <BarraDireccion>
-            <BotonPersonaje onClick={irInicio}>Personaje Aleatorio</BotonPersonaje>
-            <BotonPersonaje onClick={irPersonajes}>Personajes</BotonPersonaje>
+            {clicked?(<BotonPersonaje onClick={irInicio}>Personaje Aleatorio</BotonPersonaje>):
+            (<BotonPersonajeC onClick={irInicio}>Personaje Aleatorio</BotonPersonajeC>)}
+            {clickedP?(<BotonPersonaje onClick={irPersonajes}>Personajes</BotonPersonaje>):
+            (<BotonPersonajeC onClick={irPersonajes}>Personajes</BotonPersonajeC>)}
         </BarraDireccion>
     </>
   )
@@ -53,9 +60,10 @@ const Redes = styled.div`
   align-items: center;
 `
 const Imagen = styled.div`
+  font-weight: bold;  
   display:flex;
   height: 70px;
-  width: 200px;
+  width: 300px;
   justify-content: center;
   align-items: center;
 `
@@ -77,4 +85,24 @@ padding:0px 20px;
     border-bottom: 3px solid #888888
 }
   
+`
+const BotonPersonajeC = styled.div`
+display: flex;
+text-align: center;
+align-items: center;
+height: 100%;
+padding:0px 20px;
+border-bottom: 3px solid #555555;
+&:hover{
+    cursor: pointer;
+    border-bottom: 3px solid #888888
+}
+  
+`
+const Logo = styled.img`
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100%;
+width:auto;
 `
