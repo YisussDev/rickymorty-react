@@ -6,13 +6,14 @@ import SideBar from './SideBar';
 import { motion } from 'framer-motion'
 
 const Inicio = () => {
+
+  
   const[historial, setHistorial] = useState();
-  const[aleatorio, setAleatorio] = useState(1);
-
-  const generarPersonaje = ()=>{
-    setAleatorio(Math.floor(Math.random()*826))
-  }
-
+  const[aleatorio, setAleatorio] = useState(Math.floor(Math.random()*826));
+  const [personajeActual, setPersonajeActual] = useState();
+  const [historialPers, setHistorialPers] = useState([]);
+  
+  
   const GET_CHARACTERS = gql `
   query {
     character(id:${aleatorio}) {
@@ -21,17 +22,26 @@ const Inicio = () => {
       id
       gender
       created
-    image
+      image
     }
   }
   `
   const { loading, error, data } = useQuery(GET_CHARACTERS);
   if (loading) return <Spinner></Spinner>;
   if (error) return <p>Error :(</p>;
-  console.log(data);
+
+  
+  const generarPersonaje = ()=>{
+    setHistorialPers(personajeActual)
+    setPersonajeActual(data.character)
+    setAleatorio(Math.floor(Math.random()*826))
+    setHistorialPers([data.character, ...historialPers])
+  }
+
+
   return (
     <ContenedorRamdon>
-      {historial?(<SideBar />):null}
+      {historial?(<SideBar data={historialPers}/>):null}
       <BotonesRamdon>
           <BotonGenerar onClick={generarPersonaje}>Generar Personaje</BotonGenerar>
           <BotonGenerar onClick={()=> setHistorial(!historial)}>Historial</BotonGenerar>

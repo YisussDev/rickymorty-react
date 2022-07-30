@@ -23,7 +23,7 @@ const TarjetasPersonajes = styled.div`
   width: 250px;
   transition:0.2s;
   &:hover{
-    transform: scale(1.1);
+    transform: scale(1.04);
   }
 `
 const Imagen = styled.img`

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import rym from '../img/rym.png'
 
 
 const Header = () => {
@@ -22,13 +23,9 @@ const Header = () => {
     <>
         <Barra>
             <Imagen>
-              <Logo src='https://www.pngmart.com/files/3/Rick-And-Morty-PNG-Pic.png'/>
+              <Logo src={rym}/>
                 Rick Y Morty
             </Imagen>
-            
-            <Redes>
-                git linkedin
-            </Redes>
         </Barra>
         <BarraDireccion>
             {clicked?(<BotonPersonaje onClick={irInicio}>Personaje Aleatorio</BotonPersonaje>):
@@ -54,13 +51,6 @@ const Barra = styled.div`
   box-shadow: 1px 1px 2px 2px #AAAAAA;
   z-index:100;
 `
-const Redes = styled.div`
-  display:flex;
-  height: 70px;
-  width: 200px;
-  justify-content: center;
-  align-items: center;
-`
 const Imagen = styled.div`
   font-weight: bold;  
   font-family: 'Russo One', sans-serif;
@@ -82,9 +72,8 @@ height: 70px;
 box-shadow: 0px 1px 1px 1px #AAAAAA;
 z-index: 10;
 `
-const BotonPersonaje = styled.button`
-display: block;
-text-align: center;
+const BotonPersonaje = styled.div`
+display: flex;
 background-color: #FFFFFF;
 align-items: center;
 height: 100%;
@@ -92,20 +81,19 @@ padding:0px 20px;
 border: none ;
 &:hover{
     cursor: pointer;
-    border-bottom: 3px solid #888888
+    border-bottom: 3px inset #888888;
 }
   
 `
 const BotonPersonajeC = styled.div`
 display: flex;
-text-align: center;
 align-items: center;
 height: 100%;
 padding:0px 20px;
-border-bottom: 3px solid #555555;
+border-bottom: 3px inset #555555;
 &:hover{
     cursor: pointer;
-    border-bottom: 3px solid #888888
+    border-bottom: 3px inset #888888;
 }
   
 `
