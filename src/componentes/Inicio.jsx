@@ -1,19 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import styled,{keyframes} from 'styled-components';
 import { useQuery, gql } from '@apollo/client';
-import PersonajeR from './PersonajeR'
-import SideBar from './SideBar';
-import { motion } from 'framer-motion'
+import PersonajeR from './PersonajeR';
 
-const Inicio = () => {
-
+const Inicio = (props) => {
   
-  const[historial, setHistorial] = useState();
   const[aleatorio, setAleatorio] = useState(Math.floor(Math.random()*826));
-  const [personajeActual, setPersonajeActual] = useState();
-  const [historialPers, setHistorialPers] = useState([]);
-  
-  
   const GET_CHARACTERS = gql `
   query {
     character(id:${aleatorio}) {
@@ -27,24 +19,33 @@ const Inicio = () => {
   }
   `
   const { loading, error, data } = useQuery(GET_CHARACTERS);
-  if (loading) return <Spinner></Spinner>;
+  
+  const[historial, setHistorial] = useState(false);
+  const [historialPers, setHistorialPers] = useState([]);
+  
+  
+   
+    if (loading) return <Spinner> </Spinner>;
   if (error) return <p>Error :(</p>;
+
 
   
   const generarPersonaje = ()=>{
-    setHistorialPers(personajeActual)
-    setPersonajeActual(data.character)
+    setHistorialPers([data.character, ...historialPers]);
+    props.onClick(historialPers);
     setAleatorio(Math.floor(Math.random()*826))
-    setHistorialPers([data.character, ...historialPers])
+  }
+  const abrirHistorial = () => {
+    setHistorial(!historial)
+    props.abrirHistorial(historial)
   }
 
 
   return (
     <ContenedorRamdon>
-      {historial?(<SideBar data={historialPers}/>):null}
       <BotonesRamdon>
           <BotonGenerar onClick={generarPersonaje}>Generar Personaje</BotonGenerar>
-          <BotonGenerar onClick={()=> setHistorial(!historial)}>Historial</BotonGenerar>
+          <BotonGenerar onClick={abrirHistorial}>Historial</BotonGenerar>
       </BotonesRamdon>
     {<PersonajeR
     url = {data.character.image}
