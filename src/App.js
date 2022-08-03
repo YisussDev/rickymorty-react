@@ -24,7 +24,7 @@ const App = () => {
           <Header />
           {historialAbierto?(<SideBar data={historial}/>):null}
             <Routes>
-                <Route Exact path="/" element={<Inicio onClick={generarPersonaje} abrirHistorial = {abrirHistorial}/>} />
+                <Route Exact path="/" element={<Inicio generarPersonaje ={generarPersonaje} abrirHistorial = {abrirHistorial}/>} />
                 <Route path="/personajes" element={<Personajes />} />
             </Routes>
         </BrowserRouter>

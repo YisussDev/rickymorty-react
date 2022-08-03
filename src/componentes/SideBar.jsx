@@ -16,16 +16,11 @@ const datos = props.data;
         <Contenedor>
       {
         datos.map((data, ind, arr)=>{
-          if(ind!==arr.length-1){
             return <TarjetaHistorial 
             key={data.image}
             nombre={data.name}
             imagen={data.image}
             />
-          }
-          else{
-            return null;
-          }
         })
       }
       </Contenedor>
